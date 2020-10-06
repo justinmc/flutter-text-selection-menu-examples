@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
 import 'default_page.dart';
+import 'settings_page.dart';
+import 'settings_model.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Validation Sandbox',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return ModelBinding<SettingsModel>(
+      initialModel: SettingsModel(),
+      child: MaterialApp(
+        title: 'Flutter Validation Sandbox',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        initialRoute: '/',
+        routes: <String, Widget Function(BuildContext)>{
+          '/': (BuildContext context) => MyHomePage(),
+          '/default': (BuildContext context) => DefaultPage(),
+          '/settings': (BuildContext context) => SettingsPage(),
+        },
       ),
-      initialRoute: '/',
-      routes: <String, Widget Function(BuildContext)>{
-        '/': (BuildContext context) => MyHomePage(),
-        '/default': (BuildContext context) => DefaultPage(),
-      },
     );
   }
 }
@@ -28,6 +34,14 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('InteractiveViewer Demos'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.of(context).pushNamed('/settings');
+            },
+          ),
+        ],
       ),
       body: ListView(
         children: <Widget>[
