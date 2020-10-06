@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'app_scaffold.dart';
 import 'default_page.dart';
 import 'settings_page.dart';
 import 'settings_model.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: <String, Widget Function(BuildContext)>{
           '/': (BuildContext context) => MyHomePage(),
-          '/default': (BuildContext context) => DefaultPage(),
+          DefaultPage.routeName: (BuildContext context) => DefaultPage(),
           '/settings': (BuildContext context) => SettingsPage(),
         },
       ),
@@ -31,19 +32,9 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('InteractiveViewer Demos'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              Navigator.of(context).pushNamed('/settings');
-            },
-          ),
-        ],
-      ),
-      body: ListView(
+    return AppScaffold(
+      title: 'Text Menu Customization',
+      child: ListView(
         children: <Widget>[
           MyListItem(
             route: '/default',
