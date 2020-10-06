@@ -3,6 +3,7 @@ import 'app_scaffold.dart';
 import 'default_page.dart';
 import 'settings_page.dart';
 import 'settings_model.dart';
+import 'custom_menu_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,6 +20,8 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: <String, Widget Function(BuildContext)>{
           '/': (BuildContext context) => MyHomePage(),
+          //CustomMenuPage.routeName: (BuildContext context) => CustomMenuPage(),
+          CustomMenuPage.routeName: (BuildContext context) => CustomMenuPage(),
           DefaultPage.routeName: (BuildContext context) => DefaultPage(),
           '/settings': (BuildContext context) => SettingsPage(),
         },
@@ -37,9 +40,14 @@ class MyHomePage extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           MyListItem(
-            route: '/default',
+            route: DefaultPage.routeName,
             subtitle: 'The default behavior',
             title: 'Default',
+          ),
+          MyListItem(
+            route: CustomMenuPage.routeName,
+            subtitle: 'The menu looks visually different, but menu items are the same',
+            title: 'Custom Menu',
           ),
         ],
       ),
@@ -48,7 +56,7 @@ class MyHomePage extends StatelessWidget {
 }
 
 class MyListItem extends StatelessWidget {
-  MyListItem({
+  const MyListItem({
     Key key,
     this.route,
     this.subtitle,

@@ -14,7 +14,8 @@ class _DefaultPageState extends State<DefaultPage> {
   Widget build(BuildContext context) {
     return AppScaffold(
       title: 'Default Page',
-      child: TextField(
+      child: SelectableText(
+        'Select me',
       ),
     );
   }
