@@ -10,13 +10,22 @@ class DefaultPage extends StatefulWidget {
 }
 
 class _DefaultPageState extends State<DefaultPage> {
+  final TextEditingController controller = TextEditingController(
+    text: 'Select me',
+  );
+
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
       title: 'Default Page',
+      child: TextField(
+        controller: controller,
+      ),
+      /*
       child: SelectableText(
         'Select me',
       ),
+      */
     );
   }
 }
