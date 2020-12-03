@@ -5,6 +5,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'app_scaffold.dart';
 
+class _TextSelectionToolbarItemData {
+  const _TextSelectionToolbarItemData({
+    this.label,
+    this.onPressed,
+  });
+
+  final String label;
+  final VoidCallback onPressed;
+}
+
 class CustomMenuPage extends StatefulWidget {
   const CustomMenuPage({ Key key }) : super(key: key);
 
@@ -143,6 +153,36 @@ class MyTextSelectionToolbarState extends State<MyTextSelectionToolbar> {
   Widget build(BuildContext context) {
     assert(debugCheckHasMaterialLocalizations(context));
     final MaterialLocalizations localizations = MaterialLocalizations.of(context);
+
+    final List<_TextSelectionToolbarItemData> itemDatas = <_TextSelectionToolbarItemData>[
+      if (widget.handleCut != null)
+        _TextSelectionToolbarItemData(
+          label: localizations.cutButtonLabel,
+          onPressed: widget.handleCut,
+        ),
+      if (widget.handleCopy != null)
+        _TextSelectionToolbarItemData(
+          label: localizations.copyButtonLabel,
+          onPressed: widget.handleCopy,
+        ),
+      if (widget.handlePaste != null
+          && widget.clipboardStatus.value == ClipboardStatus.pasteable)
+        _TextSelectionToolbarItemData(
+          label: localizations.pasteButtonLabel,
+          onPressed: widget.handlePaste,
+        ),
+      if (widget.handleSelectAll != null)
+        _TextSelectionToolbarItemData(
+          label: localizations.selectAllButtonLabel,
+          onPressed: widget.handleSelectAll,
+        ),
+      _TextSelectionToolbarItemData(
+        onPressed: widget.handleCustomButton,
+        label: 'Custom button',
+      ),
+    ];
+
+    int childIndex = 0;
     return TextSelectionToolbar(
       anchorAbove: widget.anchorAbove,
       anchorBelow: widget.anchorBelow,
@@ -152,44 +192,14 @@ class MyTextSelectionToolbarState extends State<MyTextSelectionToolbar> {
           child: child,
         );
       },
-      children: <Widget>[
-        if (widget.handleCut != null)
-          TextSelectionToolbarTextButton(
-            // TODO(justinmc): Position not necessarily correct. Use a List.
-            index: 0,
-            total: 5,
-            onPressed: widget.handleCut,
-            child: Text(localizations.cutButtonLabel),
-          ),
-        if (widget.handleCopy != null)
-          TextSelectionToolbarTextButton(
-            index: 1,
-            total: 5,
-            onPressed: widget.handleCopy,
-            child: Text(localizations.copyButtonLabel),
-          ),
-        if (widget.handlePaste != null
-            && widget.clipboardStatus.value == ClipboardStatus.pasteable)
-          TextSelectionToolbarTextButton(
-            index: 2,
-            total: 5,
-            onPressed: widget.handlePaste,
-            child: Text(localizations.pasteButtonLabel),
-          ),
-        if (widget.handleSelectAll != null)
-          TextSelectionToolbarTextButton(
-            index: 3,
-            total: 5,
-            onPressed: widget.handleSelectAll,
-            child: Text(localizations.selectAllButtonLabel),
-          ),
-        TextSelectionToolbarTextButton(
-          index: 4,
-          total: 5,
-          onPressed: widget.handleCustomButton,
-          child: Text('Custom button'),
-        ),
-      ],
+      children: itemDatas.map((_TextSelectionToolbarItemData itemData) {
+        return TextSelectionToolbarTextButton(
+          index: childIndex++,
+          total: itemDatas.length,
+          onPressed: itemData.onPressed,
+          child: Text(itemData.label),
+        );
+      }).toList(),
     );
   }
 }
