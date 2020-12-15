@@ -194,8 +194,7 @@ class MyTextSelectionToolbarState extends State<MyTextSelectionToolbar> {
       },
       children: itemDatas.map((_TextSelectionToolbarItemData itemData) {
         return TextSelectionToolbarTextButton(
-          index: childIndex++,
-          total: itemDatas.length,
+          padding: TextSelectionToolbarTextButton.getPadding(childIndex++, itemDatas.length),
           onPressed: itemData.onPressed,
           child: Text(itemData.label),
         );
