@@ -4,6 +4,7 @@ import 'default_page.dart';
 import 'settings_page.dart';
 import 'settings_model.dart';
 import 'custom_menu_page.dart';
+import 'custom_cupertino_menu_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,8 +21,8 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: <String, Widget Function(BuildContext)>{
           '/': (BuildContext context) => MyHomePage(),
-          //CustomMenuPage.routeName: (BuildContext context) => CustomMenuPage(),
           CustomMenuPage.routeName: (BuildContext context) => CustomMenuPage(),
+          CustomCupertinoMenuPage.routeName: (BuildContext context) => CustomCupertinoMenuPage(),
           DefaultPage.routeName: (BuildContext context) => DefaultPage(),
           '/settings': (BuildContext context) => SettingsPage(),
         },
@@ -46,8 +47,13 @@ class MyHomePage extends StatelessWidget {
           ),
           MyListItem(
             route: CustomMenuPage.routeName,
-            subtitle: 'The menu looks visually different, but menu items are the same',
+            subtitle: 'Material-style custom menu and items',
             title: 'Custom Menu',
+          ),
+          MyListItem(
+            route: CustomMenuPage.routeName,
+            subtitle: 'Cupertino-style custom menu and items',
+            title: 'Custom Cupertino Menu',
           ),
         ],
       ),
