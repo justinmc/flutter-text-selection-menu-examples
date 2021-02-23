@@ -50,17 +50,19 @@ class ModelBinding<T> extends StatefulWidget {
 
   _ModelBindingState<T> createState() => _ModelBindingState<T>();
 
-  static Type _typeOf<T>() => T;  // https://github.com/dart-lang/sdk/issues/33297
+  //static Type _typeOf<T>() => T;  // https://github.com/dart-lang/sdk/issues/33297
 
   static T of<T>(BuildContext context) {
-    final Type scopeType = _typeOf<_ModelBindingScope<T>>();
-    final _ModelBindingScope<T> scope = context.inheritFromWidgetOfExactType(scopeType);
+    //final Type scopeType = _typeOf<_ModelBindingScope<T>>();
+    //final _ModelBindingScope<T> scope = context.inheritFromWidgetOfExactType(scopeType);
+    final _ModelBindingScope<T> scope = context.dependOnInheritedWidgetOfExactType();
     return scope.modelBindingState.currentModel;
   }
 
   static void update<T>(BuildContext context, T newModel) {
-    final Type scopeType = _typeOf<_ModelBindingScope<T>>();
-    final _ModelBindingScope<dynamic> scope = context.inheritFromWidgetOfExactType(scopeType);
+    //final Type scopeType = _typeOf<_ModelBindingScope<T>>();
+    //final _ModelBindingScope<dynamic> scope = context.inheritFromWidgetOfExactType(scopeType);
+    final _ModelBindingScope<T> scope = context.dependOnInheritedWidgetOfExactType();
     scope.modelBindingState.updateModel(newModel);
   }
 }

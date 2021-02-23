@@ -58,6 +58,7 @@ class MyCupertinoTextSelectionControls extends CupertinoTextSelectionControls {
     List<TextSelectionPoint> endpoints,
     TextSelectionDelegate delegate,
     ClipboardStatusNotifier clipboardStatus,
+    Offset lastSecondaryTapDownPosition,
   ) {
     assert(debugCheckHasMediaQuery(context));
     final MediaQueryData mediaQuery = MediaQuery.of(context);
@@ -183,9 +184,9 @@ class MyTextSelectionToolbarState extends State<MyTextSelectionToolbar> {
         items.add(onePhysicalPixelVerticalDivider);
       }
 
-      items.add(CupertinoTextSelectionToolbarButton(
+      items.add(CupertinoTextSelectionToolbarButton.text(
         onPressed: onPressed,
-        child: CupertinoTextSelectionToolbarButton.getText(text),
+        text: text,
       ));
     }
 
