@@ -51,7 +51,7 @@ class MyHomePage extends StatelessWidget {
             title: 'Custom Menu',
           ),
           MyListItem(
-            route: CustomMenuPage.routeName,
+            route: CustomCupertinoMenuPage.routeName,
             subtitle: 'Cupertino-style custom menu and items',
             title: 'Custom Cupertino Menu',
           ),
